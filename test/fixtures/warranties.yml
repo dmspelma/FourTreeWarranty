@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  warranty_name: MyString
+  warranty_company: MyString
+  extra_info: MyText
+  warranty_start_date: 2023-02-17 12:51:30
+  warranty_end_date: 2023-02-17 12:51:30
+
+two:
+  warranty_name: MyString
+  warranty_company: MyString
+  extra_info: MyText
+  warranty_start_date: 2023-02-17 12:51:30
+  warranty_end_date: 2023-02-17 12:51:30
