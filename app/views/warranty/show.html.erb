@@ -1,0 +1,19 @@
+<h1>
+  <%= @warranty.warranty_name %>
+</h1>
+<ul>
+  <li>
+    Company name: <%= @warranty.warranty_company %>
+  </li>
+  <li>
+    Warranty Start Date: <%= @warranty.warranty_start_date %>
+  </li>
+  <li>
+    Warranty End Date: <%= @warranty.warranty_end_date %>
+  </li>
+  <% if @warranty.extra_info %>
+    <li>
+      <%= "Extra Info: #{@Warranty.extra_info}" %>
+    </li>
+  <% end %>
+</ul>

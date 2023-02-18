@@ -1,3 +1,12 @@
-<h1>Warranty Index</h1>
-<p>Thank you for visiting this page</p>
-<%= @test %>
+<h1>Warranty#Index</h1>
+<p>Thank you for visiting this page. Here are your current warranties:</p>
+
+<ul>
+  <% @warranties.each do |w| %>
+    <li>
+      <%= link_to w.warranty_name, w %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Add New Warranty', new_warranty_path %>

@@ -1,0 +1,39 @@
+<h1>New Warranty</h1>
+
+<%= form_with model: @warranty, url: warranty_index_path do |form| %>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :warranty_name %>
+    <% @warranty.errors.full_messages_for(:warranty_name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :company %><br>
+    <%= form.text_field :warranty_company %>
+    <% @warranty.errors.full_messages_for(:warranty_company).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :warrany_start_date %>
+    <%= form.date_field :warranty_start_date %>
+    <% @warranty.errors.full_messages_for(:warranty_start_date).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :warrany_end_date %>
+    <%= form.date_field :warranty_end_date %>
+    <% @warranty.errors.full_messages_for(:warranty_end_date).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
