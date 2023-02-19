@@ -17,3 +17,7 @@
     </li>
   <% end %>
 </ul>
+
+<%= link_to 'Home', warranty_index_path %>
+<%= link_to 'Edit Warranty', edit_warranty_path %>
+<%= link_to 'Delete', warranty_path(@warranty), data: { method: :delete, confirm: "Are you sure?" } %>

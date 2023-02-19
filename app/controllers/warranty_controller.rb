@@ -21,6 +21,27 @@ class WarrantyController < ApplicationController
     end
   end
 
+  def edit
+    @warranty = Warranty.find(params[:id])
+  end
+
+  def update
+    @warranty = Warranty.find(params[:id])
+
+    if @warranty.update(warranty_params)
+      redirect_to @warranty
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @warranty = Warranty.find(params[:id])
+    @warranty.destroy
+
+    redirect_to root_path, status: :see_other
+  end
+
   private
 
   def warranty_params
