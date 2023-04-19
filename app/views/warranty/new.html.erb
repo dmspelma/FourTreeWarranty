@@ -1,0 +1,9 @@
+<h1>Add New Warranty</h1>
+
+<%= form_with model: @warranty, url: warranty_index_path do |form| %>
+  <%= render form, warranty: @warranty %>
+  <br>
+  <%= form.submit %>
+<% end %>
+
+<%= link_to 'Home', warranty_index_path %>

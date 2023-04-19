@@ -1,15 +1,8 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  warranty_name: MyString
-  warranty_company: MyString
-  extra_info: MyText
+fox:
+  warranty_name: 'robinhood'
+  warranty_company: 'thisfoxcodes'
+  extra_info: 'he likes foxes.'
   warranty_start_date: 2023-02-17 12:51:30
-  warranty_end_date: 2023-02-17 12:51:30
-
-two:
-  warranty_name: MyString
-  warranty_company: MyString
-  extra_info: MyText
-  warranty_start_date: 2023-02-17 12:51:30
-  warranty_end_date: 2023-02-17 12:51:30
+  warranty_end_date: 2024-02-17 12:51:30

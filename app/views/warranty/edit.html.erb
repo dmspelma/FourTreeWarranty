@@ -1,0 +1,9 @@
+<h1>Edit <%= @warranty.warranty_name %> Warranty</h1>
+
+<%= form_with model: @warranty do |form| %>
+  <%= render form, warranty: @warranty %>
+  <br>
+  <%= form.submit :update %>
+<% end %>
+
+<%= link_to 'Home', warranty_index_path %>

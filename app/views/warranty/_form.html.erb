@@ -1,0 +1,25 @@
+<div>
+  <div>
+    <%= form.label :warranty_name %>
+    <%= form.text_field :warranty_name, placeholder: warranty.warranty_name %>
+    <% warranty.errors.full_messages_for(:title).each do |message| %>
+      <%= message %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :warranty_company %>
+    <%= form.text_field :warranty_company, placeholder: warranty.warranty_company %>
+    <% warranty.errors.full_messages_for(:title).each do |message| %>
+      <%= message %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :extra_info %>
+    <%= form.text_field :extra_info, placeholder: warranty.extra_info %>
+    <% warranty.errors.full_messages_for(:title).each do |message| %>
+      <%= message %>
+    <% end %>
+  </div>
+</div>

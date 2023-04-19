@@ -1,0 +1,19 @@
+<div>
+  <p>
+    <%= @warranty.warranty_name %>
+  </p>
+
+  <p>
+    <%= @warranty.warranty_company %>
+  </p>
+
+  <p>
+    <%= @warranty.extra_info %>
+  </p>
+</div>
+
+<div>
+  <%= link_to 'Home', warranty_index_path %>
+  <%= link_to 'Edit', edit_warranty_path(@warranty) %>
+  <%= link_to 'Delete', warranty_path(@warranty), data: { method: :delete, confirm: "Are you sure?" } %>
+</div>
