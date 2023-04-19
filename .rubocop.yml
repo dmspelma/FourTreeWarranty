@@ -1,0 +1,27 @@
+Style/SymbolArray:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Max: 15
+Metrics/PerceivedComplexity:
+  Max: 15
+Style/CombinableLoops:
+  Enabled: false
+Metrics/AbcSize:
+  Enabled: false
+Metrics/ClassLength:
+  Max: 150
+Metrics/MethodLength:
+  Max: 60
+Metrics/ModuleLength:
+  Max: 150
+Metrics/BlockLength:
+  IgnoredMethods: ['guard', 'loop', 'describe']
+  Max: 40
+Layout/LineLength:
+  Max: 120
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'bin/bundle'
+    - 'db/*'
+  TargetRubyVersion: 3.1.1
