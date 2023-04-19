@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Default Warranty creation
 class CreateWarranties < ActiveRecord::Migration[6.1]
   def change
     create_table :warranties do |t|
