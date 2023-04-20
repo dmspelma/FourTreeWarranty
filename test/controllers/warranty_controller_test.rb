@@ -4,8 +4,12 @@ require 'test_helper'
 
 # Warranty controller tests
 class WarrantyControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
     @warranty = Warranty.create!(warranty_name: 'iPhone X', warranty_company: 'Apple')
+
+    sign_in users(:fox)
   end
 
   test 'Warranty Index' do
