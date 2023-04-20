@@ -24,4 +24,6 @@ AllCops:
   Exclude:
     - 'bin/bundle'
     - 'db/*'
+    - 'config/initializers/*'
+
   TargetRubyVersion: 3.1.1
