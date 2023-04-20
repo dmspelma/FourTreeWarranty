@@ -55,7 +55,8 @@ class WarrantyController < ApplicationController
       :warranty_company,
       :extra_info,
       :warranty_start_date,
-      :warranty_end_date
+      :warranty_end_date,
+      :user_id
     )
   end
 end

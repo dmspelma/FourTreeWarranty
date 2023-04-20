@@ -7,14 +7,30 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    @warranty = Warranty.create!(warranty_name: 'iPhone X', warranty_company: 'Apple')
+    fox = User.create!(email: 'fox2@example.com', password: 'test1234')
+
+    @valid_params = {
+      warranty_name: 'iPhone X',
+      warranty_company: 'Apple',
+      warranty_start_date: Time.now,
+      user_id: fox.id
+    }
+    @warranty = Warranty.create!(@valid_params)
 
     sign_in users(:fox)
   end
 
   test 'Warranty Index' do
-    Warranty.create!(warranty_name: 'Malibu Barbie', warranty_company: 'Hasbro')
-    Warranty.create!(warranty_name: 'White Chair', warranty_company: 'Living Spaces')
+    barbie = @valid_params.dup
+    barbie[:warranty_name] = 'Malibu Barbie'
+    barbie[:warranty_company] = 'Hasbro'
+
+    chair = @valid_params.dup
+    chair[:warranty_name] = 'White Chair'
+    chair[:warranty_company] = 'Living Spaces'
+
+    Warranty.create!(barbie)
+    Warranty.create!(chair)
 
     get warranty_index_path
     assert_select 'a', 'robinhood'
@@ -30,10 +46,9 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'Create warranty' do
-    params = {
-      warranty_name: 'Gaming Chair',
-      warranty_company: 'Razr'
-    }
+    params = @valid_params.dup
+    params[:warranty_name] = 'Gaming Chair'
+    params[:warranty_company] = 'Razr'
 
     post warranty_index_path, params: { warranty: params }
     assert_response :redirect
@@ -47,14 +62,14 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     no_name_params = {
       warranty_name: 'robinhood'
     }
-    no_company_params = {
-      warranty_company: 'thisfoxcodes'
+    invalid_user_id = {
+      user_id: 9009
     }
 
     post warranty_index_path, params: { warranty: no_name_params }
     assert_response :unprocessable_entity
 
-    post warranty_index_path, params: { warranty: no_company_params }
+    post warranty_index_path, params: { warranty: invalid_user_id }
     assert_response :unprocessable_entity
   end
 
@@ -81,15 +96,16 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
       warranty_name: 'A'
     }
 
-    invalid_company = {
-      warranty_company: 'B'
+    invalid_user_id = {
+      user_id: 9001
     }
 
     put warranty_path(@warranty), params: { warranty: invalid_name }
     assert_response :unprocessable_entity
 
-    put warranty_path(@warranty), params: { warranty: invalid_company }
-    assert_response :unprocessable_entity
+    assert_raises(ActiveRecord::InvalidForeignKey) do
+      put warranty_path(@warranty), params: { warranty: invalid_user_id }
+    end
   end
 
   test 'Destroy warranty' do
