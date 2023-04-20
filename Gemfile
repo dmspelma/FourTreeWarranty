@@ -36,6 +36,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # Added for Application:
 gem 'devise'
 
+# Bootstrap
+# gem 'bootstrap-datepicker-rails'
+# gem 'bootstrap-sass'
+
 # END CUSTOM----->
 
 group :development, :test do

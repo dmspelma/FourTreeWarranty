@@ -5,7 +5,7 @@ class WarrantyController < ApplicationController
   attr_accessor :warranty_name, :warranty_company
 
   def index
-    @warranties = Warranty.all
+    @warranties = Warranty.where(user_id: loaded_user)
   end
 
   def show
@@ -17,7 +17,9 @@ class WarrantyController < ApplicationController
   end
 
   def create
-    @warranty = Warranty.new(warranty_params)
+    params = warranty_params
+    # params[:user_id] = loaded_user
+    @warranty = Warranty.new(params)
 
     if @warranty.save
       redirect_to @warranty
@@ -27,6 +29,7 @@ class WarrantyController < ApplicationController
   end
 
   def edit
+
     @warranty = Warranty.find(params[:id])
   end
 
@@ -58,5 +61,9 @@ class WarrantyController < ApplicationController
       :warranty_end_date,
       :user_id
     )
+  end
+
+  def loaded_user
+    @loaded_user ||= current_user.id
   end
 end

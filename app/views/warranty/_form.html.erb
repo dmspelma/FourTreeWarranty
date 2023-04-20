@@ -2,7 +2,7 @@
   <div>
     <%= form.label :warranty_name %>
     <%= form.text_field :warranty_name, placeholder: warranty.warranty_name %>
-    <% warranty.errors.full_messages_for(:title).each do |message| %>
+    <% warranty.errors.full_messages_for(:warranty_name).each do |message| %>
       <%= message %>
     <% end %>
   </div>
@@ -10,7 +10,7 @@
   <div>
     <%= form.label :warranty_company %>
     <%= form.text_field :warranty_company, placeholder: warranty.warranty_company %>
-    <% warranty.errors.full_messages_for(:title).each do |message| %>
+    <% warranty.errors.full_messages_for(:warranty_company).each do |message| %>
       <%= message %>
     <% end %>
   </div>
@@ -18,7 +18,23 @@
   <div>
     <%= form.label :extra_info %>
     <%= form.text_field :extra_info, placeholder: warranty.extra_info %>
-    <% warranty.errors.full_messages_for(:title).each do |message| %>
+    <% warranty.errors.full_messages_for(:extra_info).each do |message| %>
+      <%= message %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :warranty_start_date %>
+    <%= form.date_field :warranty_start_date, placeholder: warranty.warranty_start_date, min: 0.days.ago %>
+    <% warranty.errors.full_messages_for(:warranty_start_date).each do |message| %>
+      <%= message %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :warranty_end_date %>
+    <%= form.date_field :warranty_end_date, placeholder: warranty.warranty_end_date, min: 0.days.ago %>
+    <% warranty.errors.full_messages_for(:warranty_end_date).each do |message| %>
       <%= message %>
     <% end %>
   </div>

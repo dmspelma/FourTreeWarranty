@@ -7,17 +7,17 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    fox = User.create!(email: 'fox2@example.com', password: 'test1234')
+    user = users(:fox)
 
     @valid_params = {
       warranty_name: 'iPhone X',
       warranty_company: 'Apple',
       warranty_start_date: Time.now,
-      user_id: fox.id
+      user_id: user.id
     }
     @warranty = Warranty.create!(@valid_params)
 
-    sign_in users(:fox)
+    sign_in user
   end
 
   test 'Warranty Index' do
@@ -33,7 +33,6 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     Warranty.create!(chair)
 
     get warranty_index_path
-    assert_select 'a', 'robinhood'
     assert_select 'a', 'Malibu Barbie'
     assert_select 'a', 'White Chair'
   end
