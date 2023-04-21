@@ -10,7 +10,7 @@ class WarrantyTest < ActiveSupport::TestCase
     @valid_params = {
       warranty_name: 'robinhood',
       warranty_company: 'thisfoxcodes',
-      warranty_start_date: Time.now,
+      warranty_start_date: Date.current,
       extra_info: 'something.',
       user_id: @user.id
     }
@@ -20,13 +20,13 @@ class WarrantyTest < ActiveSupport::TestCase
     short_name = Warranty.new(
       warranty_name: 'A',
       warranty_company: 'Test',
-      warranty_start_date: Time.now,
+      warranty_start_date: Date.current,
       user_id: @user.id
     )
     long_name = Warranty.new(
       warranty_name: 'A' * 51,
       warranty_company: 'Test',
-      warranty_start_date: Time.now,
+      warranty_start_date: Date.current,
       user_id: @user.id
     )
 
@@ -45,13 +45,13 @@ class WarrantyTest < ActiveSupport::TestCase
     short_name = Warranty.new(
       warranty_name: 'A',
       warranty_company: 'Test',
-      warranty_start_date: Time.now,
+      warranty_start_date: Date.current,
       user_id: @user.id
     )
     long_name = Warranty.new(
       warranty_name: 'A' * 51,
       warranty_company: 'Test',
-      warranty_start_date: Time.now,
+      warranty_start_date: Date.current,
       user_id: @user.id
     )
 
@@ -68,12 +68,13 @@ class WarrantyTest < ActiveSupport::TestCase
 
   test 'User_id must exist' do
     invalid_user_params = @valid_params.dup
-    invalid_user_params[:user_id] = 9000
+    invalid_user_params[:user_id] = 0
 
     invalid_warranty = Warranty.new(invalid_user_params)
     assert_raises(ActiveRecord::RecordInvalid) do
       invalid_warranty.save!
     end
+    assert invalid_warranty.errors.messages[:user_id], ['must exist']
   end
 
   test 'Warranty_start_date cannot be null' do
@@ -84,16 +85,31 @@ class WarrantyTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordInvalid) do
       invalid_warranty.save!
     end
+    assert invalid_warranty.errors.messages[:warranty_start_date], ['is not a valid date']
   end
 
-  test 'allow_warranty_end_date' do
-    @valid_params[warranty_end_date: Time.now]
+  test 'Warranty_end_date can be nil' do
+    @valid_params[warranty_end_date: nil]
 
     assert Warranty.new(@valid_params).save
   end
 
-  # This needs to be implemented, but I think there is a ruby gem to assist with time comparisons:
-  # test 'warranty_end_date must be after warranty_start_date' do; end
+  test 'Warranty_end_date must be after warranty_start_date' do
+    invalid_end_params = @valid_params.dup
+    invalid_end_params[:warranty_end_date] = Date.current - 1.days
+
+    invalid_warranty = Warranty.new(invalid_end_params)
+    assert_raises(ActiveRecord::RecordInvalid) do
+      invalid_warranty.save!
+    end
+    assert invalid_warranty.errors.messages, ['end date must be after start date']
+
+    valid_end_date = @valid_params.dup
+    valid_end_date[:warranty_end_date] = Date.current + 1.day
+
+    valid_warranty = Warranty.new(valid_end_date)
+    assert valid_warranty.save
+  end
 
   test 'Cannot save warranty without necessary params' do
     empty_warranty = Warranty.new
@@ -101,7 +117,15 @@ class WarrantyTest < ActiveSupport::TestCase
       empty_warranty.save!
     end
 
-    assert empty_warranty.errors.messages.keys.count, 4
+    expected_errors = {
+      user: ['must exist'],
+      warranty_name: ['can\'t be blank', 'is too short (minimum is 2 characters)'],
+      warranty_company: ['can\'t be blank', 'is too short (minimum is 2 characters)'],
+      warranty_start_date: ['is not a valid date'],
+      user_id: ['can\'t be blank']
+    }
+
+    assert_equal empty_warranty.errors.messages, expected_errors
   end
 
   test 'don\'t allow too long extra_info' do

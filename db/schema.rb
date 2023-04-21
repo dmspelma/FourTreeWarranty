@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_20_035044) do
+ActiveRecord::Schema.define(version: 2023_04_21_053629) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -33,8 +33,8 @@ ActiveRecord::Schema.define(version: 2023_04_20_035044) do
     t.string "warranty_name"
     t.string "warranty_company"
     t.text "extra_info"
-    t.datetime "warranty_start_date"
-    t.datetime "warranty_end_date"
+    t.date "warranty_start_date"
+    t.date "warranty_end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "user_id"

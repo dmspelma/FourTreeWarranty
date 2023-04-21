@@ -12,7 +12,7 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     @valid_params = {
       warranty_name: 'iPhone X',
       warranty_company: 'Apple',
-      warranty_start_date: Time.now,
+      warranty_start_date: Date.current,
       user_id: user.id
     }
     @warranty = Warranty.create!(@valid_params)

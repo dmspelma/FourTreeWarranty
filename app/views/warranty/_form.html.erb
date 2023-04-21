@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'end_date_validator' %>
+
 <div>
   <div>
     <%= form.label :warranty_name %>
@@ -25,7 +27,7 @@
 
   <div>
     <%= form.label :warranty_start_date %>
-    <%= form.date_field :warranty_start_date, placeholder: warranty.warranty_start_date %>
+    <%= form.date_field :warranty_start_date, placeholder: warranty.warranty_start_date, id: 'start-date' %>
     <% warranty.errors.full_messages_for(:warranty_start_date).each do |message| %>
       <%= message %>
     <% end %>
@@ -33,7 +35,7 @@
 
   <div>
     <%= form.label :warranty_end_date %>
-    <%= form.date_field :warranty_end_date, placeholder: warranty.warranty_end_date %>
+    <%= form.date_field :warranty_end_date, placeholder: warranty.warranty_end_date, id: 'end-date' %>
     <% warranty.errors.full_messages_for(:warranty_end_date).each do |message| %>
       <%= message %>
     <% end %>
