@@ -27,3 +27,4 @@ AllCops:
     - 'bin/bundle'
     - 'db/*'
     - 'config/initializers/*'
+    - 'Gemfile'
