@@ -10,6 +10,8 @@ Metrics/AbcSize:
   Enabled: false
 Metrics/ClassLength:
   Max: 150
+  Exclude:
+    - 'test/models/*'
 Metrics/MethodLength:
   Max: 60
 Metrics/ModuleLength:
@@ -25,5 +27,3 @@ AllCops:
     - 'bin/bundle'
     - 'db/*'
     - 'config/initializers/*'
-
-  TargetRubyVersion: 3.1.1

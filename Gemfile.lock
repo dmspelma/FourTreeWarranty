@@ -201,12 +201,16 @@ GEM
       mini_portile2 (~> 2.8.0)
     thor (1.2.1)
     tilt (2.1.0)
+    timeliness (0.4.5)
     timeout (0.3.2)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    validates_timeliness (6.0.1)
+      activemodel (>= 6.0.0, < 7)
+      timeliness (>= 0.3.10, < 1)
     warden (1.2.9)
       rack (>= 2.0.9)
     web-console (4.2.0)
@@ -250,6 +254,7 @@ DEPENDENCIES
   sqlite3
   turbolinks (~> 5)
   tzinfo-data
+  validates_timeliness (~> 6.0.0)
   web-console (>= 4.1.0)
   webdrivers
   webpacker (~> 5.0)

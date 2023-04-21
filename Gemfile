@@ -34,11 +34,15 @@ gem 'bootsnap', '>= 1.4.4', require: false
 # CUSTOM---->
 
 # Added for Application:
+# Authentication
 gem 'devise'
 
 # Bootstrap
 # gem 'bootstrap-datepicker-rails'
 # gem 'bootstrap-sass'
+
+# Easier time comparisons
+gem 'validates_timeliness', '~> 6.0.0'
 
 # END CUSTOM----->
 
