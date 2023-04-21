@@ -44,6 +44,8 @@ gem 'devise'
 # Easier time comparisons
 gem 'validates_timeliness', '~> 6.0.0'
 
+gem 'jquery-rails'
+
 # END CUSTOM----->
 
 group :development, :test do
