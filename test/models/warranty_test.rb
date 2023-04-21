@@ -33,12 +33,12 @@ class WarrantyTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordInvalid) do
       short_name.save!
     end
-    assert short_name.errors.messages[:warranty_name], ['is too short (minimum is 2 characters)']
+    assert_equal short_name.errors.messages[:warranty_name], ['is too short (minimum is 2 characters)']
 
     assert_raises(ActiveRecord::RecordInvalid) do
       long_name.save!
     end
-    assert long_name.errors.messages[:warranty_name], ['is too long (maximum is 50 characters)']
+    assert_equal long_name.errors.messages[:warranty_name], ['is too long (maximum is 50 characters)']
   end
 
   test 'Warranty company must be valid' do
