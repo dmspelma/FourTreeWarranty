@@ -9,4 +9,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          # Includeding:
          :trackable
+
+  has_many :warranties
 end

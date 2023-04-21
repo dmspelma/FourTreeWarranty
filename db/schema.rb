@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_19_223256) do
+ActiveRecord::Schema.define(version: 2023_04_20_035044) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -37,6 +37,11 @@ ActiveRecord::Schema.define(version: 2023_04_19_223256) do
     t.datetime "warranty_end_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.boolean "expired", default: false
+    t.datetime "deleted_at"
+    t.index ["user_id"], name: "index_warranties_on_user_id"
   end
 
+  add_foreign_key "warranties", "users"
 end
