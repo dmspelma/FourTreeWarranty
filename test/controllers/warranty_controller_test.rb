@@ -33,15 +33,16 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     Warranty.create!(chair)
 
     get warranty_index_path
+    assert_select 'robinhood', false
     assert_select 'a', 'Malibu Barbie'
     assert_select 'a', 'White Chair'
   end
 
   test 'Show warranty' do
-    get warranty_path(Warranty.first.id)
+    get warranty_path(@warranty)
     assert_response :success
-    assert_select 'p', Warranty.first.warranty_name
-    assert_select 'p', Warranty.first.warranty_company
+    assert_select 'p', @warranty.warranty_name
+    assert_select 'p', @warranty.warranty_company
   end
 
   test 'Create warranty' do
@@ -95,16 +96,15 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
       warranty_name: 'A'
     }
 
-    invalid_user_id = {
-      user_id: 9001
+    invalid_start = {
+      warranty_start_date: nil
     }
 
     put warranty_path(@warranty), params: { warranty: invalid_name }
     assert_response :unprocessable_entity
 
-    assert_raises(ActiveRecord::InvalidForeignKey) do
-      put warranty_path(@warranty), params: { warranty: invalid_user_id }
-    end
+    put warranty_path(@warranty), params: { warranty: invalid_start }
+    assert_response :unprocessable_entity
   end
 
   test 'Destroy warranty' do

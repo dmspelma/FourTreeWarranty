@@ -10,6 +10,12 @@ class WarrantyController < ApplicationController
 
   def show
     @warranty = Warranty.find(params[:id])
+
+    if @warranty.user_id == loaded_user
+      @warranty
+    else
+      redirect_to warranty_index_path
+    end
   end
 
   def new
@@ -17,9 +23,7 @@ class WarrantyController < ApplicationController
   end
 
   def create
-    params = warranty_params
-    # params[:user_id] = loaded_user
-    @warranty = Warranty.new(params)
+    @warranty = Warranty.new(full_params)
 
     if @warranty.save
       redirect_to @warranty
@@ -29,14 +33,13 @@ class WarrantyController < ApplicationController
   end
 
   def edit
-
     @warranty = Warranty.find(params[:id])
   end
 
   def update
     @warranty = Warranty.find(params[:id])
 
-    if @warranty.update(warranty_params)
+    if @warranty.update(full_params)
       redirect_to @warranty
     else
       render :edit, status: :unprocessable_entity
@@ -58,9 +61,14 @@ class WarrantyController < ApplicationController
       :warranty_company,
       :extra_info,
       :warranty_start_date,
-      :warranty_end_date,
-      :user_id
+      :warranty_end_date
     )
+  end
+
+  def full_params
+    full_params = warranty_params
+    full_params[:user_id] = loaded_user
+    full_params
   end
 
   def loaded_user

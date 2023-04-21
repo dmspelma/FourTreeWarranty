@@ -4,13 +4,6 @@ require 'test_helper'
 
 # Tests the warranty object
 class WarrantyTest < ActiveSupport::TestCase
-  # test 'Warranty initialized' do
-  #   warranty = Warranty.new
-  #   assert_nil warranty.warranty_name
-  #   assert_nil warranty.warranty_company
-  #   assert_not warranty.save
-  # end
-
   setup do
     @user = User.create!(email: 'test@example.com', password: 'test1234')
 
@@ -78,7 +71,7 @@ class WarrantyTest < ActiveSupport::TestCase
     invalid_user_params[:user_id] = 9000
 
     invalid_warranty = Warranty.new(invalid_user_params)
-    assert_raises(ActiveRecord::InvalidForeignKey) do
+    assert_raises(ActiveRecord::RecordInvalid) do
       invalid_warranty.save!
     end
   end
