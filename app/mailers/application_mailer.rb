@@ -2,6 +2,6 @@
 
 # Application level mailer defaults
 class ApplicationMailer < ActionMailer::Base
-  default from: 'from@example.com'
+  default from: 'thisfoxcodes@gmail.com'
   layout 'mailer'
 end

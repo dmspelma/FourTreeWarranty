@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <title>The following warrany(s) are close to expiring:</title>
+</head>
+<body>
+  <table>
+    <tr>
+      <th>Warranty:</th>
+      <th>Expiring:</th>
+    </tr>
+
+    <%= @warranties.each do |w| %>
+    <tr>
+      <td><%= w.warranty_name %></td>
+      <td><%= w.warranty_end_date %></td>
+    </tr>
+    <% end %>
+  </table>
+  <p>Take a look and see if any action is required before your warranty expires.</p>
+</body>
+</html>
