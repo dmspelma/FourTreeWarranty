@@ -58,12 +58,12 @@ class WarrantyTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordInvalid) do
       short_name.save!
     end
-    assert short_name.errors.messages[:warranty_name], ['is too short (minimum is 2 characters)']
+    assert_equal short_name.errors.messages[:warranty_name], ['is too short (minimum is 2 characters)']
 
     assert_raises(ActiveRecord::RecordInvalid) do
       long_name.save!
     end
-    assert long_name.errors.messages[:warranty_name], ['is too long (maximum is 50 characters)']
+    assert_equal long_name.errors.messages[:warranty_name], ['is too long (maximum is 50 characters)']
   end
 
   test 'User_id must exist' do
@@ -74,7 +74,7 @@ class WarrantyTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordInvalid) do
       invalid_warranty.save!
     end
-    assert invalid_warranty.errors.messages[:user_id], ['must exist']
+    assert_equal invalid_warranty.errors.messages[:user], ['must exist']
   end
 
   test 'Warranty_start_date cannot be null' do
@@ -85,7 +85,7 @@ class WarrantyTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordInvalid) do
       invalid_warranty.save!
     end
-    assert invalid_warranty.errors.messages[:warranty_start_date], ['is not a valid date']
+    assert_equal invalid_warranty.errors.messages[:warranty_start_date], ['is not a valid date']
   end
 
   test 'Warranty_end_date can be nil' do
@@ -102,7 +102,7 @@ class WarrantyTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordInvalid) do
       invalid_warranty.save!
     end
-    assert invalid_warranty.errors.messages, ['end date must be after start date']
+    assert_equal invalid_warranty.errors.messages[:warranty_end_date], ['end date must be after start date']
 
     valid_end_date = @valid_params.dup
     valid_end_date[:warranty_end_date] = Date.current + 1.day
@@ -137,7 +137,7 @@ class WarrantyTest < ActiveSupport::TestCase
     assert_raises(ActiveRecord::RecordInvalid) do
       invalid_warranty.save!
     end
-    assert invalid_warranty.errors.messages[:extra_info], ['is too long (maximum is 250 characters)']
+    assert_equal invalid_warranty.errors.messages[:extra_info], ['is too long (maximum is 250 characters)']
   end
 
   test 'Save valid warranty' do
@@ -145,11 +145,14 @@ class WarrantyTest < ActiveSupport::TestCase
 
     assert Warranty.new(@valid_params).save
 
-    assert total + 1, Warranty.count
+    assert_equal total + 1, Warranty.count
   end
 
   test 'Cannot update invalid warranty' do
-    warranty = Warranty.create(@valid_params)
+    too_short_warranty = Warranty.create(@valid_params)
+    no_params_warranty = Warranty.create(@valid_params)
+    no_start_warranty = Warranty.create(@valid_params)
+    long_info_warranty = Warranty.create(@valid_params)
 
     too_short_params = {
       warranty_name: 'A',
@@ -167,17 +170,24 @@ class WarrantyTest < ActiveSupport::TestCase
     }
 
     assert_raises(ActiveRecord::RecordInvalid) do
-      warranty.update!(too_short_params)
+      too_short_warranty.update!(too_short_params)
     end
+    assert_equal too_short_warranty.errors.messages.count, 2
+
     assert_raises(ActiveRecord::RecordInvalid) do
-      warranty.update!(no_params)
+      no_params_warranty.update!(no_params)
     end
+    assert_equal no_params_warranty.errors.messages.count, 2
+
     assert_raises(ActiveRecord::RecordInvalid) do
-      warranty.update!(no_start_date)
+      no_start_warranty.update!(no_start_date)
     end
+    assert_equal no_start_warranty.errors.messages.count, 1
+
     assert_raises(ActiveRecord::RecordInvalid) do
-      warranty.update!(long_extra_info)
+      long_info_warranty.update!(long_extra_info)
     end
+    assert_equal long_info_warranty.errors.messages.count, 1
   end
 
   test 'Update valid warranty' do
@@ -195,6 +205,6 @@ class WarrantyTest < ActiveSupport::TestCase
     total = Warranty.count
 
     assert warranty.destroy
-    assert total - 1, Warranty.count
+    assert_equal total - 1, Warranty.count
   end
 end

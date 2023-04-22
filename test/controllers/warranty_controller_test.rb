@@ -8,6 +8,7 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
 
   setup do
     user = users(:fox)
+    sign_in user
 
     @valid_params = {
       warranty_name: 'iPhone X',
@@ -16,8 +17,6 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
       user_id: user.id
     }
     @warranty = Warranty.create!(@valid_params)
-
-    sign_in user
   end
 
   test 'Warranty Index' do
@@ -59,11 +58,13 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'Error during create warranty' do
+    admin = User.new(email: 'admin@example.com', password: 'test1234')
+
     no_name_params = {
       warranty_name: 'robinhood'
     }
     invalid_user_id = {
-      user_id: 9009
+      user_id: admin.id
     }
 
     post warranty_index_path, params: { warranty: no_name_params }
