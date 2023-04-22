@@ -43,6 +43,19 @@ Rails.application.configure do
   # ActionMailer Setup for Devise:
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
+  # My Basic Mailer Setup
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address: 'thisfoxcodes@gmail.com',
+    port: 587,
+    domain: 'thisfoxcodes.com',
+    user_name: 'dummy',
+    password: 'dummy',
+    authentication: 'plain',
+    enable_starttls_auto: true
+  }
+  # config.action_mailer.perform_deliveries = true
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

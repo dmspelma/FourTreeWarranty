@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+  <h3>The following warranty(s) are close to expiring:</h3>
+  <table>
+    <tr>
+      <th>Warranty:</th>
+      <th>Expiring:</th>
+    </tr>
+
+    <% @warranties.each do |w| %>
+    <tr>
+      <td><%= w.warranty_name %></td>
+      <td><%= w.warranty_end_date.to_formatted_s(format: "%m-%d-%Y")%></td>
+    </tr>
+    <% end %>
+  </table>
+  <p>Take a look and see if any action is required before your warranty expires.</p>
+</body>
+</html>

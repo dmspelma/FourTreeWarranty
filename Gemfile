@@ -44,7 +44,11 @@ gem 'devise'
 # Easier time comparisons
 gem 'validates_timeliness', '~> 6.0.0'
 
+# Javascript related
 gem 'jquery-rails'
+
+# Cron Scheduler
+gem 'whenever'
 
 # END CUSTOM----->
 
