@@ -11,6 +11,6 @@ class WarrantyExpiringMailer < ApplicationMailer
   private
 
   def subject
-    @subject ||= "You have #{@warranties.size} expiring warranty(s)!"
+    "You have #{@warranties.size} expiring warranty(s)!"
   end
 end

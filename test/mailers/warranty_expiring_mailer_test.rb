@@ -18,7 +18,7 @@ class WarrantyExpiringMailerTest < ActionMailer::TestCase
       warranty_name: 'Laptop',
       warranty_company: 'Lenovo',
       warranty_start_date: 40.days.ago,
-      warranty_end_date: 15.days.ago,
+      warranty_end_date: 16.days.ago,
       user_id: user_one.id
     )
 
@@ -34,8 +34,8 @@ class WarrantyExpiringMailerTest < ActionMailer::TestCase
     assert_equal "You have #{warranties.size} expiring warranty(s)!", email.subject
     assert_equal [user_one.email], email.to
     assert_match warranties.first.warranty_name.to_s, email.body.to_s
-    assert_match warranties.first.warranty_end_date.to_s, email.body.to_s
+    assert_match warranties.first.warranty_end_date.to_formatted_s(format: '%m-%d-%Y'), email.body.to_s
     assert_match warranties.last.warranty_name.to_s, email.body.to_s
-    assert_match warranties.last.warranty_end_date.to_s, email.body.to_s
+    assert_match warranties.last.warranty_end_date.to_formatted_s(format: '%m-%d-%Y'), email.body.to_s
   end
 end

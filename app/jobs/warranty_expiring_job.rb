@@ -22,6 +22,6 @@ class WarrantyExpiringJob < ApplicationJob
   end
 
   def users
-    @users ||= expiring_warranties.map(&:user).uniq
+    expiring_warranties.map(&:user).uniq
   end
 end
