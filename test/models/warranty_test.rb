@@ -77,9 +77,18 @@ class WarrantyTest < ActiveSupport::TestCase
     assert_equal invalid_warranty.errors.messages[:user], ['must exist']
   end
 
-  test 'Warranty_start_date cannot be null' do
+  test 'Warranty_start_date must be valid' do
+    nil_start_params = @valid_params.dup
+    nil_start_params[:warranty_start_date] = nil
+
     invalid_start_params = @valid_params.dup
-    invalid_start_params[:warranty_start_date] = nil
+    invalid_start_params[:warranty_start_date] = '2023-xx-xx'
+
+    nil_warranty = Warranty.new(nil_start_params)
+    assert_raises(ActiveRecord::RecordInvalid) do
+      nil_warranty.save!
+    end
+    assert_equal nil_warranty.errors.messages[:warranty_start_date], ['is not a valid date']
 
     invalid_warranty = Warranty.new(invalid_start_params)
     assert_raises(ActiveRecord::RecordInvalid) do
@@ -88,10 +97,20 @@ class WarrantyTest < ActiveSupport::TestCase
     assert_equal invalid_warranty.errors.messages[:warranty_start_date], ['is not a valid date']
   end
 
-  test 'Warranty_end_date can be nil' do
-    @valid_params[warranty_end_date: nil]
+  test 'Warranty_end_date must be valid' do
+    nil_start_params = @valid_params.dup
+    nil_start_params[:warranty_end_date] = nil
 
-    assert Warranty.new(@valid_params).save
+    invalid_end_params = @valid_params.dup
+    invalid_end_params[:warranty_end_date] = '2023-xx-xx'
+
+    assert Warranty.new(nil_start_params).save
+
+    invalid_warranty = Warranty.new(invalid_end_params)
+    assert_raises(ActiveRecord::RecordInvalid) do
+      invalid_warranty.save!
+    end
+    assert_equal invalid_warranty.errors.messages[:warranty_end_date], ['end date must be after start date']
   end
 
   test 'Warranty_end_date must be after warranty_start_date' do
