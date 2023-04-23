@@ -1,0 +1,28 @@
+<% unless any_warranties.empty? %>
+  <table>
+    <caption><%= title %></caption>
+    <head>
+      <tr>
+        <th>Name</th>
+        <th>Company</th>
+        <th>Extra Info</th>
+        <th>Start Date</th>
+        <th>Expiration Date</th>
+      </tr>
+    </head>
+
+    <body>
+      <% any_warranties.each do |w| %>
+        <tr>
+          <td><%= link_to w.warranty_name, w %></td>
+          <td><%= w.warranty_company%></td>
+          <td><%= w.extra_info%></td>
+          <td><%= w.warranty_start_date%></td>
+          <td><%= w.warranty_end_date || 'Lifetime' %></td>
+        </tr>
+      <% end %>
+    </body>
+  </table>
+
+  <br>
+<% end %>

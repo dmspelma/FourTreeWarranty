@@ -18,6 +18,7 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     FactoryBot.create(:warranty, warranty_name: 'White Chair', warranty_company: 'Living Spaces', user: @user)
 
     get warranty_index_path
+    assert_select 'h1', 'Warranty Index'
     assert_select 'a', 'Malibu Barbie'
     assert_select 'a', 'White Chair'
   end
@@ -28,6 +29,29 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
 
     get warranty_index_path
     assert_select admin_warranty.warranty_name, false
+  end
+
+  test 'Index will not display any warranties table if there are no warranties' do
+    # This scenario is typically for a new user who hasn't yet added any warranties
+    new_user = FactoryBot.create(:user)
+    sign_in new_user
+
+    get warranty_index_path
+    assert_select 'Current Warranties', false
+    assert_select 'Expired Warranties', false
+  end
+
+  test 'Index will not display expired warranties table if there are no expired warranties' do
+    get warranty_index_path
+    assert_select 'Expired Warranties', false
+  end
+
+  test 'Index will display expired warranties if some exist' do
+    FactoryBot.create(:warranty, user: @user, expired: true)
+
+    get warranty_index_path
+    assert_select 'caption', 'Current Warranties'
+    assert_select 'caption', 'Expired Warranties'
   end
 
   test 'Show warranty' do

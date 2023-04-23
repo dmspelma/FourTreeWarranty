@@ -1,14 +1,13 @@
 <h1>Warranty Index</h1>
 
-<div>
-  <ol>
-    <% @warranties.each do |warranty| %>
-      <li>
-        <%= link_to warranty.warranty_name, warranty %>
-      </li>
-    <% end %>
-  </ol>
+<div id="current_warranties">
+  <%= render 'table', title: 'Current Warranties', any_warranties: @warranties %>
 </div>
+
+<div id="expired_warranties">
+  <%= render 'table', title: 'Expired Warranties', any_warranties: @expired_warranties %>
+</div>
+
 <%= link_to 'Add New Warranty', new_warranty_path %>
-<%= link_to 'Sign Out', destroy_user_session_path, :method => :delete %>
+<%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
 <p>Thank you for visiting this page</p>
