@@ -7,34 +7,27 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    user = users(:fox)
-    sign_in user
+    @user = users(:fox)
+    sign_in @user
 
-    @valid_params = {
-      warranty_name: 'iPhone X',
-      warranty_company: 'Apple',
-      warranty_start_date: Date.current,
-      user_id: user.id
-    }
-    @warranty = Warranty.create!(@valid_params)
+    @warranty = FactoryBot.create(:warranty, user: @user)
   end
 
   test 'Warranty Index' do
-    barbie = @valid_params.dup
-    barbie[:warranty_name] = 'Malibu Barbie'
-    barbie[:warranty_company] = 'Hasbro'
-
-    chair = @valid_params.dup
-    chair[:warranty_name] = 'White Chair'
-    chair[:warranty_company] = 'Living Spaces'
-
-    Warranty.create!(barbie)
-    Warranty.create!(chair)
+    FactoryBot.create(:warranty, warranty_name: 'Malibu Barbie', warranty_company: 'Hasbro', user: @user)
+    FactoryBot.create(:warranty, warranty_name: 'White Chair', warranty_company: 'Living Spaces', user: @user)
 
     get warranty_index_path
-    assert_select 'robinhood', false
     assert_select 'a', 'Malibu Barbie'
     assert_select 'a', 'White Chair'
+  end
+
+  test 'Index displays only warranties associated with user' do
+    admin = FactoryBot.create(:user)
+    admin_warranty = FactoryBot.create(:warranty, user: admin)
+
+    get warranty_index_path
+    assert_select admin_warranty.warranty_name, false
   end
 
   test 'Show warranty' do
@@ -44,10 +37,19 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     assert_select 'p', @warranty.warranty_company
   end
 
+  test 'Display Index if navigating to other user\'s warranty' do
+    admin = FactoryBot.create(:user)
+    admin_warranty = FactoryBot.create(:warranty, user: admin)
+
+    get warranty_path(admin_warranty)
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    assert_select 'h1', 'Warranty Index'
+  end
+
   test 'Create warranty' do
-    params = @valid_params.dup
-    params[:warranty_name] = 'Gaming Chair'
-    params[:warranty_company] = 'Razr'
+    params = FactoryBot.attributes_for(:warranty, warranty_name: 'Gaming Chair', warranty_company: 'Razr')
 
     post warranty_index_path, params: { warranty: params }
     assert_response :redirect
@@ -58,19 +60,9 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'Error during create warranty' do
-    admin = User.new(email: 'admin@example.com', password: 'test1234')
+    invalid_params = FactoryBot.attributes_for(:warranty, warranty_name: nil)
 
-    no_name_params = {
-      warranty_name: 'robinhood'
-    }
-    invalid_user_id = {
-      user_id: admin.id
-    }
-
-    post warranty_index_path, params: { warranty: no_name_params }
-    assert_response :unprocessable_entity
-
-    post warranty_index_path, params: { warranty: invalid_user_id }
+    post warranty_index_path, params: { warranty: invalid_params }
     assert_response :unprocessable_entity
   end
 
@@ -81,9 +73,7 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'Update warranty' do
-    params = {
-      warranty_name: 'robin-hood'
-    }
+    params = FactoryBot.attributes_for(:warranty, warranty_name: 'robin-hood')
 
     put warranty_path(@warranty), params: { warranty: params }
     assert_response :redirect
@@ -93,18 +83,13 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'Error during update warranty' do
-    invalid_name = {
-      warranty_name: 'A'
-    }
+    invalid_name_params = FactoryBot.attributes_for(:warranty, warranty_name: 'A')
+    invalid_start_params = FactoryBot.attributes_for(:warranty, warranty_start_date: nil)
 
-    invalid_start = {
-      warranty_start_date: nil
-    }
-
-    put warranty_path(@warranty), params: { warranty: invalid_name }
+    put warranty_path(@warranty), params: { warranty: invalid_name_params }
     assert_response :unprocessable_entity
 
-    put warranty_path(@warranty), params: { warranty: invalid_start }
+    put warranty_path(@warranty), params: { warranty: invalid_start_params }
     assert_response :unprocessable_entity
   end
 

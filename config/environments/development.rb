@@ -91,4 +91,11 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # My Custom:
+
+  # Add suffix to _factory files that are generated for model
+  config.generators do |g|
+    g.factory_bot suffix: 'factory'
+  end
 end
