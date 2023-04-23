@@ -1,19 +1,15 @@
-<div>
-  <p>
-    <%= @warranty.warranty_name %>
-  </p>
-
-  <p>
-    <%= @warranty.warranty_company %>
-  </p>
-
-  <p>
-    <%= @warranty.extra_info %>
-  </p>
+<div id='Warranty Show'>
+  <p>Warranty Name: <%= @warranty.warranty_name %></p>
+  <p>Warranty Company: <%= @warranty.warranty_company %></p>
+  <% unless @warranty.extra_info.nil? || @warranty.extra_info.empty? %>
+    <p>Extra Info: <%= @warranty.extra_info %></p>
+  <% end %>
+  <p>Start Date: <%= @warranty.warranty_start_date %></p>
+  <p>End Date: <%= @warranty.warranty_end_date || 'Lifetime' %></p>
 </div>
-
 <div>
-  <%= link_to 'Home', warranty_index_path %>
-  <%= link_to 'Edit', edit_warranty_path(@warranty) %>
-  <%= link_to 'Delete', warranty_path(@warranty), data: { method: :delete, confirm: "Are you sure?" } %>
+  <!-- The class 'btn' here is for when bootstrap is added-->
+  <%= link_to 'Home', warranty_index_path, class: 'btn btn-primary' %>
+  <%= link_to 'Edit', edit_warranty_path(@warranty), class: 'btn' %>
+  <%= link_to 'Delete', warranty_path(@warranty), data: { method: :delete, confirm: "Are you sure?" }, class: 'btn' %>
 </div>

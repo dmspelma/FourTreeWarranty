@@ -55,10 +55,31 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'Show warranty' do
-    get warranty_path(@warranty)
+    show_warranty = FactoryBot.create(:warranty, user: @user, extra_info: 'something', warranty_end_date: 1.day.ago)
+
+    get warranty_path(show_warranty)
     assert_response :success
-    assert_select 'p', @warranty.warranty_name
-    assert_select 'p', @warranty.warranty_company
+    assert_match show_warranty.warranty_name, response.body
+    assert_match show_warranty.warranty_company, response.body
+    assert_match show_warranty.extra_info, response.body
+    assert_match show_warranty.warranty_start_date.to_s, response.body
+    assert_match show_warranty.warranty_end_date.to_s, response.body
+  end
+
+  test 'Show warranty does not display extra info if field is empty' do
+    no_extra_info = FactoryBot.create(:warranty, user: @user, warranty_end_date: 1.day.ago)
+
+    get warranty_path(no_extra_info)
+    assert_response :success
+    assert_no_match 'Extra Info', response.body
+  end
+
+  test 'Show warranty displays "Lifetime" if warranty_end_date is empty' do
+    no_end_date = FactoryBot.create(:warranty, user: @user, extra_info: 'something')
+
+    get warranty_path(no_end_date)
+    assert_response :success
+    assert_match 'Lifetime', response.body
   end
 
   test 'Display Index if navigating to other user\'s warranty' do
@@ -79,8 +100,8 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-    assert_select 'p', 'Gaming Chair'
-    assert_select 'p', 'Razr'
+    assert_match 'Gaming Chair', response.body
+    assert_match 'Razr', response.body
   end
 
   test 'Error during create warranty' do
@@ -103,7 +124,7 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-    assert_select 'p', 'robin-hood'
+    assert_match 'robin-hood', response.body
   end
 
   test 'Error during update warranty' do
