@@ -14,6 +14,3 @@
  *= require_self
  */
 
-.date-validation-error {
-  border: 1px solid red;  /* Add any other styles to make it noticeable */
-}

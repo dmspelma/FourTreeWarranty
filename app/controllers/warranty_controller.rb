@@ -5,7 +5,8 @@ class WarrantyController < ApplicationController
   attr_accessor :warranty_name, :warranty_company
 
   def index
-    @warranties = Warranty.where(user_id: loaded_user)
+    @warranties = Warranty.where(user_id: loaded_user).where.not(expired: true)
+    @expired_warranties = Warranty.where(user_id: loaded_user, expired: true)
   end
 
   def show
