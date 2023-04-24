@@ -78,7 +78,7 @@ $(document).ready(function() {
     if (isNaN(startDate)) {
         return 'please select a date'
     }
-    if (startDate > endDate){
+    if (startDate >= endDate){
         return 'must be before end date OR end date should be cleared'
     } else {
         return null
