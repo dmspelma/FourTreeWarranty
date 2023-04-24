@@ -27,6 +27,7 @@ class WarrantyController < ApplicationController
     @warranty = Warranty.new(full_params)
 
     if @warranty.save
+      flash[:notice] = 'Warranty created successfully!'
       redirect_to @warranty
     else
       render :new, status: :unprocessable_entity
@@ -41,6 +42,7 @@ class WarrantyController < ApplicationController
     @warranty = Warranty.find(params[:id])
 
     if @warranty.update(full_params)
+      flash[:warning] = 'Warranty updated successfully!'
       redirect_to @warranty
     else
       render :edit, status: :unprocessable_entity
@@ -51,6 +53,7 @@ class WarrantyController < ApplicationController
     @warranty = Warranty.find(params[:id])
     @warranty.destroy
 
+    flash[:danger] = 'Warranty destroyed!'
     redirect_to root_path, status: :see_other
   end
 
