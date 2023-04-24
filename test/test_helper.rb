@@ -13,5 +13,9 @@ module ActiveSupport
     fixtures :all
 
     # Add more helper methods to be used by all tests here...
+    def assert_flash_message(expected_message, actual_message)
+      assert actual_message.present?
+      assert_match expected_message, actual_message
+    end
   end
 end
