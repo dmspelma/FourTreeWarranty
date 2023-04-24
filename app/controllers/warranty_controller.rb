@@ -23,6 +23,10 @@ class WarrantyController < ApplicationController
     @warranty = Warranty.new
   end
 
+  def edit
+    @warranty = Warranty.find(params[:id])
+  end
+
   def create
     @warranty = Warranty.new(full_params)
 
@@ -32,10 +36,6 @@ class WarrantyController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  def edit
-    @warranty = Warranty.find(params[:id])
   end
 
   def update

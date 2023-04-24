@@ -12,5 +12,4 @@ class Warranty < ApplicationRecord
                  message: 'end date must be after start date',
                  allow_nil: true
   validates :extra_info, length: { maximum: 250 }
-  validates :user_id, presence: true
 end

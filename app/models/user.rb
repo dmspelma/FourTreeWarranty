@@ -10,5 +10,5 @@ class User < ApplicationRecord
          # Includeding:
          :trackable
 
-  has_many :warranties
+  has_many :warranties, dependent: nil
 end
