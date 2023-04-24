@@ -1,6 +1,6 @@
 <h1>Edit <%= @warranty.warranty_name %> Warranty</h1>
 
-<%= form_with model: @warranty do |form| %>
+<%= form_with model: @warranty, class: 'warranty-form' do |form| %>
   <%= render form, warranty: @warranty %>
   <br>
   <%= form.submit %>
