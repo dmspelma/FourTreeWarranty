@@ -1,26 +1,5 @@
-Style/SymbolArray:
-  Enabled: false
-Metrics/CyclomaticComplexity:
-  Max: 15
-Metrics/PerceivedComplexity:
-  Max: 15
-Style/CombinableLoops:
-  Enabled: false
-Metrics/AbcSize:
-  Enabled: false
-Metrics/ClassLength:
-  Max: 150
-  Exclude:
-    - 'test/models/*'
-Metrics/MethodLength:
-  Max: 60
-Metrics/ModuleLength:
-  Max: 150
-Metrics/BlockLength:
-  IgnoredMethods: ['guard', 'loop', 'describe']
-  Max: 40
-Layout/LineLength:
-  Max: 120
+require: rubocop-rails
+
 AllCops:
   NewCops: enable
   Exclude:
@@ -28,3 +7,29 @@ AllCops:
     - 'db/*'
     - 'config/initializers/*'
     - 'Gemfile'
+Layout/LineLength:
+  Max: 120
+Metrics/AbcSize:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude: ['guard', 'loop', 'describe']
+  Max: 40
+Metrics/ClassLength:
+  Max: 150
+  Exclude:
+    - 'test/models/*'
+Metrics/CyclomaticComplexity:
+  Max: 15
+Metrics/PerceivedComplexity:
+  Max: 15
+Metrics/MethodLength:
+  Max: 60
+Metrics/ModuleLength:
+  Max: 150
+Rails/FilePath:
+  Enabled: false
+Style/CombinableLoops:
+  Enabled: false
+Style/SymbolArray:
+  Enabled: false
+

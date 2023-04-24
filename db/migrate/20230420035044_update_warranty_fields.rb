@@ -6,7 +6,7 @@ class UpdateWarrantyFields < ActiveRecord::Migration[6.1]
   def change
     change_table :warranties do |t|
       t.references :user, foreign_key: true
-      t.boolean :expired, default: false
+      t.boolean :expired, default: false, null: false
       t.datetime :deleted_at
     end
   end

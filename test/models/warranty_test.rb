@@ -89,14 +89,13 @@ class WarrantyTest < ActiveSupport::TestCase
       user: ['must exist'],
       warranty_name: ['can\'t be blank', 'is too short (minimum is 2 characters)'],
       warranty_company: ['can\'t be blank', 'is too short (minimum is 2 characters)'],
-      warranty_start_date: ['is not a valid date'],
-      user_id: ['can\'t be blank']
+      warranty_start_date: ['is not a valid date']
     }
 
     assert_raises(ActiveRecord::RecordInvalid) do
       empty_warranty.save!
     end
-    assert_equal empty_warranty.errors.messages, expected_errors
+    assert_equal expected_errors, empty_warranty.errors.messages
   end
 
   test 'don\'t allow too long extra_info' do
