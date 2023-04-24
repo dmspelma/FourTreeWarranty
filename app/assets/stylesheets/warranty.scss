@@ -2,8 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-.date-validation-error {
-  border: 1px solid red;  /* Add any other styles to make it noticeable */
+.validation-error {
+  border: 2px solid red;  /* Add any other styles to make it noticeable */
+}
+
+.error {
+  display: none;
 }
 
 table, th, td, caption {
