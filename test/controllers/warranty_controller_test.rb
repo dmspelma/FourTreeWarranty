@@ -102,6 +102,7 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_match 'Gaming Chair', response.body
     assert_match 'Razr', response.body
+    assert_flash_message 'Warranty created successfully!', flash[:notice]
   end
 
   test 'Error during create warranty' do
@@ -125,6 +126,7 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
     assert_match 'robin-hood', response.body
+    assert_flash_message 'Warranty updated successfully!', flash[:warning]
   end
 
   test 'Error during update warranty' do
@@ -143,6 +145,7 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
+    assert_flash_message 'Warranty destroyed!', flash[:danger]
 
     assert_raises(ActiveRecord::RecordNotFound) do
       assert_not Warranty.find(id: @warranty.id)

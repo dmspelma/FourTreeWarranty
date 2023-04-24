@@ -1,0 +1,7 @@
+<% [:notice, :warning, :danger].each do |type| %>
+  <% if flash.now[type] %>
+    <div class = "alert alert-<%= type %>">
+      <%= flash.now[type]  %>
+    </div>
+  <% end%>
+<% end%>
