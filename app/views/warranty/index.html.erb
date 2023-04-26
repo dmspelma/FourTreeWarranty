@@ -1,13 +1,11 @@
-<h1>Warranty Index</h1>
+<%= render 'shared/flash_notice' %>
 
-<div id="current_warranties">
-  <%= render 'table', title: 'Current Warranties', any_warranties: @warranties %>
+<div class='container my_container'>
+  <div class="row row-col-1">
+    <%= render 'table', title: 'Current Warranties', any_warranties: @warranties %>
+
+    <%= render 'table', title: 'Expired Warranties', any_warranties: @expired_warranties %>
+
+    <%= link_to 'Add New Warranty', new_warranty_path, class: 'btn btn-secondary col-2' %>
+  </div>
 </div>
-
-<div id="expired_warranties">
-  <%= render 'table', title: 'Expired Warranties', any_warranties: @expired_warranties %>
-</div>
-
-<%= link_to 'Add New Warranty', new_warranty_path %>
-<%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
-<p>Thank you for visiting this page</p>
