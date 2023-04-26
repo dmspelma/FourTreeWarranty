@@ -18,7 +18,7 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     FactoryBot.create(:warranty, warranty_name: 'White Chair', warranty_company: 'Living Spaces', user: @user)
 
     get warranty_index_path
-    assert_select 'h1', 'Warranty Index'
+    assert_select 'h3', 'Current Warranties'
     assert_select 'a', 'Malibu Barbie'
     assert_select 'a', 'White Chair'
   end
@@ -50,8 +50,8 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     FactoryBot.create(:warranty, user: @user, expired: true)
 
     get warranty_index_path
-    assert_select 'caption', 'Current Warranties'
-    assert_select 'caption', 'Expired Warranties'
+    assert_select 'h3', 'Current Warranties'
+    assert_select 'h3', 'Expired Warranties'
   end
 
   test 'Show warranty' do
@@ -90,7 +90,7 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     follow_redirect!
     assert_response :success
-    assert_select 'h1', 'Warranty Index'
+    assert_select 'h3', 'Current Warranties'
   end
 
   test 'Create warranty' do
@@ -115,7 +115,7 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
   test 'Edit warranty' do
     get edit_warranty_path(@warranty)
     assert_response :success
-    assert_select 'h1', "Edit #{@warranty.warranty_name} Warranty"
+    assert_select 'h3', "Edit #{@warranty.warranty_name}"
   end
 
   test 'Update warranty' do
