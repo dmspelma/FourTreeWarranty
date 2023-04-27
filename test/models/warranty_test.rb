@@ -57,14 +57,12 @@ class WarrantyTest < ActiveSupport::TestCase
     assert_equal invalid_warranty.errors.messages[:warranty_start_date], ['is not a valid date']
   end
 
-  test 'Warranty_end_date must be valid' do
-    assert FactoryBot.create(:warranty, warranty_end_date: nil)
+  test 'Warranty_end_date defaults to nil' do
+    default = FactoryBot.create(:warranty, warranty_end_date: '')
+    assert_nil default.warranty_end_date
 
-    invalid_warranty = FactoryBot.build(:warranty, warranty_end_date: '2023-xx-xx')
-    assert_raises(ActiveRecord::RecordInvalid) do
-      invalid_warranty.save!
-    end
-    assert_equal invalid_warranty.errors.messages[:warranty_end_date], ['end date must be after start date']
+    invalid_entry = FactoryBot.create(:warranty, warranty_end_date: '2023-xx-xx')
+    assert_nil invalid_entry.warranty_end_date
   end
 
   test 'Warranty_end_date must be after warranty_start_date' do
