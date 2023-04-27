@@ -2,6 +2,8 @@
 
 # Handles warranty information
 class Warranty < ApplicationRecord
+  before_validation :set_default_warranty_end_date
+
   belongs_to :user
 
   validates :warranty_name, presence: true, length: { minimum: 2, maximum: 50 }
@@ -12,4 +14,8 @@ class Warranty < ApplicationRecord
                  message: 'end date must be after start date',
                  allow_nil: true
   validates :extra_info, length: { maximum: 250 }
+
+  def set_default_warranty_end_date
+    self.warranty_end_date ||= nil
+  end
 end
