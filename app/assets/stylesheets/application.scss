@@ -1,0 +1,174 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ */
+
+// Custom SCSS
+@import "bootstrap";
+
+body {
+  background-color:  #c5e5d5
+}
+
+// frequently used by titles. h2 is used by devise pages.
+h1, h3, h4, p {
+  text-align: center;
+  margin: 2%;
+}
+
+h5 {
+  margin: 5%;
+}
+/* Link styles for default/active/focus/hover states */
+a {
+  color: #336633;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #228B22;
+  text-decoration: underline;
+}
+
+a:active,
+a:focus {
+  outline: none;
+}
+
+tr {
+  border: 1px solid #b3c6b3;
+  border-radius: 5px;
+}
+
+.table tr:nth-child(even) {
+  background-color: #d8ede3; /* Set the background color for even rows */
+}
+
+.table tr:nth-child(odd) {
+  background-color: #e7f3ea; /* Set the background color for even rows */
+}
+
+/* Flash alert class(s) */
+.alert {
+  justify-content: center;
+
+  // Fix position to top
+  position: absolute;
+  top: 0;
+  z-index: 9999;
+}
+
+/* Notice (green) alert */
+.alert-notice {
+  background-color: #dff0d8;
+  color: #3c763d;
+  border: 1px solid #d6e9c6;
+  padding: 10px;
+}
+
+/* Warning (yellow) alert */
+.alert-warning {
+  background-color: #fcf8e3;
+  color: #8a6d3b;
+  border: 1px solid #faebcc;
+  padding: 10px;
+}
+
+/* Danger (red) alert */
+.alert-danger {
+  background-color: #f2dede;
+  color: #a94442;
+  border: 1px solid #ebccd1;
+  padding: 10px;
+}
+
+.navBar {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.signout {
+  flex: flex-grow;
+  margin-left: -10%;
+}
+
+.form-group {
+  margin-bottom: 1%;
+}
+.item {
+  padding-bottom: 5px;
+}
+
+.item-section {
+  margin-bottom: 10px;
+}
+
+.my_container {
+  border:1px solid #b3c6b3;
+  border-radius: 45px;
+  background-color: #f8f3eb
+}
+
+.login_container {
+  background-color: #FFF8DC;
+  margin: 1%;
+  display: flex;
+  align-items: flex-start;
+  width: 40%;
+
+}
+
+.login_background {
+  background-color: #FFF8DC;
+  background-image: url('tree-bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.error {
+  color: red;
+}
+
+#buttons {
+  margin: 1%;
+}
+
+.row-col-1 {
+  margin: 3%;
+}
+
+.datepicker {
+  // Change font color
+  color: #333;
+
+  // Change background color
+  background-color: #fff;
+
+  // Change border color
+  border-color: #ccc;
+}
+
+.datepicker .datepicker-switch:hover,
+.datepicker .prev:hover,
+.datepicker .next:hover,
+.datepicker tfoot tr th:hover,
+.datepicker tfoot tr th:active,
+.datepicker tfoot tr th:focus {
+  // Change hover and active state color
+  color: #007bff;
+  background-color: #f8f9fa;
+}
+
+.my-deep-brown {
+  color: #8B4513;
+}
+

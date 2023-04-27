@@ -1,28 +1,26 @@
 <% unless any_warranties.empty? %>
-  <table>
-    <caption><%= title %></caption>
+  <table class='container table'>
+    <h3 style='text-align: center;'><%= title %></h3>
     <head>
-      <tr>
-        <th>Name</th>
-        <th>Company</th>
-        <th>Extra Info</th>
-        <th>Start Date</th>
-        <th>Expiration Date</th>
+      <tr class='row'>
+        <th class='col'>Name</th>
+        <th class='col'>Company</th>
+        <th class='col' style='flex-grow: 2; text-align: center;'></th>
+        <th class='col'>Start Date</th>
+        <th class='col'>Expiration Date</th>
       </tr>
     </head>
 
     <body>
       <% any_warranties.each do |w| %>
-        <tr>
-          <td><%= link_to w.warranty_name, w %></td>
-          <td><%= w.warranty_company%></td>
-          <td><%= w.extra_info%></td>
-          <td><%= w.warranty_start_date%></td>
-          <td><%= w.warranty_end_date || 'Lifetime' %></td>
+        <tr class="row">
+          <td class='col'><%= link_to w.warranty_name, w %></td>
+          <td class='col'><%= w.warranty_company%></td>
+          <td class='col' style='flex-grow: 2'><%= w.extra_info%></td>
+          <td class='col'><%= w.warranty_start_date%></td>
+          <td class='col'><%= w.warranty_end_date || 'Lifetime' %></td>
         </tr>
       <% end %>
     </body>
   </table>
-
-  <br>
 <% end %>

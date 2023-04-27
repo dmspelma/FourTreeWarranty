@@ -10,10 +10,32 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application' %>
 
+    <%= favicon_link_tag 'favicon32.ico' %>
   </head>
 
-  <body>
-    <%= render 'shared/flash_notice' %>
-    <%= yield %>
+  <% if current_user %>
+    <body>
+  <% else %>
+    <body class="login_background">
+  <% end %>
+    <div class='container'>
+      <div class='row' style='margin-top: 1%;'>
+        <div class='col-1'>
+          <% if current_user %>
+            <%= link_to image_tag('thisfoxcodes.png'), 'https://www.thisfoxcodes.com/', class: 'float-end' %>
+          <% end %>
+        </div>
+        <div class='col-sm'>
+          <div class='row navBar'></div>
+          <%= yield %>
+        </div>
+        <div class='col-1'>
+          <% if current_user %>
+            <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'btn btn-warning signout float-end' %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row"></div>
+    </div>
   </body>
 </html>

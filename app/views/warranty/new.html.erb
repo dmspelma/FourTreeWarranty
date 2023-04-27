@@ -1,9 +1,16 @@
-<h1>Add New Warranty</h1>
+<%= render 'shared/flash_notice' %>
 
-<%= form_with model: @warranty, url: warranty_index_path, class: 'warranty-form' do |form| %>
-  <%= render form, warranty: @warranty %>
-  <br>
-  <%= form.submit %>
-<% end %>
+<div class='container my_container'>
+  <div class="row row-col-1">
+    <h3>Add New Warranty</h3>
 
-<%= link_to 'Home', warranty_index_path %>
+    <%= form_with model: @warranty, url: warranty_index_path, class: 'warranty-form' do |form| %>
+      <%= render form, warranty: @warranty %>
+      <div id='buttons'>
+        <%= link_to 'Back', warranty_index_path, class: 'btn btn-secondary' %>
+        <%= form.submit class: 'btn btn-warning' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+

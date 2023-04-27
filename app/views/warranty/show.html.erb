@@ -1,15 +1,35 @@
-<div id='Warranty Show'>
-  <p>Warranty Name: <%= @warranty.warranty_name %></p>
-  <p>Warranty Company: <%= @warranty.warranty_company %></p>
-  <% unless @warranty.extra_info.nil? || @warranty.extra_info.empty? %>
-    <p>Extra Info: <%= @warranty.extra_info %></p>
-  <% end %>
-  <p>Start Date: <%= @warranty.warranty_start_date %></p>
-  <p>End Date: <%= @warranty.warranty_end_date || 'Lifetime' %></p>
+<%= render 'shared/flash_notice' %>
+
+<div class="container-sm my_container" style="max-width: 45%;">
+  <div class="row row-col-1">
+    <h3><%= @warranty.warranty_name %></h3>
+    <hr>
+    <p>
+      <h5 class="col">Company: </h5>
+      <h5 class="col my-deep-brown"><%= @warranty.warranty_company %></h5>
+    </p>
+    <% unless @warranty.extra_info.nil? || @warranty.extra_info.empty? %>
+      <p>
+        <h5 class="col">Extra Info: </h5>
+        <h5 class="col my-deep-brown"><%= @warranty.extra_info %></h5>
+      </p>
+    <% end %>
+    <p>
+      <h5 class="col">Start Date: </h5>
+      <h5 class="col my-deep-brown"><%= @warranty.warranty_start_date %></h5>
+    </p>
+    <p>
+      <h5 class="col">End Date: </h5>
+      <h5 class="col my-deep-brown"><%= @warranty.warranty_end_date || 'Lifetime' %></h5>
+    </p>
+    <div id='buttons'>
+      <%= link_to 'Back', warranty_index_path, class: 'btn btn-secondary', id: 'buttons' %>
+      <% unless @warranty.expired %>
+        <%= link_to 'Edit', edit_warranty_path(@warranty), class: 'btn btn-warning', id: 'buttons' %>
+        <%= link_to 'Delete', warranty_path(@warranty), data: { method: :delete, confirm: "Are you sure?" },
+                                                      class: 'btn btn-danger', id: 'buttons' %>
+      <% end %>
+    </div>
+  </div>
 </div>
-<div>
-  <!-- The class 'btn' here is for when bootstrap is added-->
-  <%= link_to 'Home', warranty_index_path, class: 'btn btn-primary' %>
-  <%= link_to 'Edit', edit_warranty_path(@warranty), class: 'btn' %>
-  <%= link_to 'Delete', warranty_path(@warranty), data: { method: :delete, confirm: "Are you sure?" }, class: 'btn' %>
-</div>
+

@@ -29,7 +29,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'bootsnap', '>= 1.4.4'
 
 # CUSTOM---->
 
@@ -38,8 +38,12 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 
 # Bootstrap
-# gem 'bootstrap-datepicker-rails'
+gem 'bootstrap', '~> 5.3.0.alpha3'
+gem 'bootstrap-datepicker-rails'
 # gem 'bootstrap-sass'
+
+# Bootstrap dependency
+gem 'popper_js', '~> 2.11.7'
 
 # Easier time comparisons
 gem 'validates_timeliness', '~> 6.0.0'

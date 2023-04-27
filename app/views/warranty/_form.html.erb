@@ -1,46 +1,31 @@
 <%= javascript_include_tag 'validations_input_changes' %>
 
-<div>
+<div class='form-group'>
   <%= form.label :warranty_name %>
-  <%= form.text_field :warranty_name, placeholder: warranty.warranty_name, id: 'warranty-name' %>
-  <span class="error" id="warranty-name-error"></span>
-  <% warranty.errors.full_messages_for(:warranty_name).each do |message| %>
-    <%= message %>
-  <% end %>
+  <span class="error" id="warranty-name-error"><%= warranty.errors.messages_for(:warranty_name).last %></span>
+  <%= form.text_field :warranty_name, placeholder: warranty.warranty_name, id: 'warranty-name', class: 'form-control' %>
 </div>
 
-<div>
+<div class='form-group'>
   <%= form.label :warranty_company %>
-  <%= form.text_field :warranty_company, placeholder: warranty.warranty_company, id: 'warranty-company' %>
-  <span class="error" id="warranty-company-error"></span>
-  <% warranty.errors.full_messages_for(:warranty_company).each do |message| %>
-    <%= message %>
-  <% end %>
+  <span class="error" id="warranty-company-error"><%= warranty.errors.messages_for(:warranty_company).last %></span>
+  <%= form.text_field :warranty_company, placeholder: warranty.warranty_company, id: 'warranty-company', class: 'form-control' %>
 </div>
 
-<div>
+<div class='form-group'>
   <%= form.label :extra_info %>
-  <%= form.text_field :extra_info, placeholder: warranty.extra_info, id: 'extra-info' %>
-  <span class="error" id="warranty-extra-info-error"></span>
-  <% warranty.errors.full_messages_for(:extra_info).each do |message| %>
-    <%= message %>
-  <% end %>
+  <span class="error" id="warranty-extra-info-error"><%= warranty.errors.messages_for(:extra_info).last %></span>
+  <%= form.text_area :extra_info, placeholder: warranty.extra_info, id: 'extra-info', class: 'form-control' %>
 </div>
 
-<div>
+<div class='form-group' style="max-width: 25%">
   <%= form.label :warranty_start_date %>
-  <%= form.date_field :warranty_start_date, placeholder: warranty.warranty_start_date, id: 'start-date' %>
-  <span class="error" id="warranty-start-error"></span>
-  <% warranty.errors.full_messages_for(:warranty_start_date).each do |message| %>
-    <%= message %>
-  <% end %>
+  <span class="error" id="warranty-start-error"><%= warranty.errors.messages_for(:warranty_start_date).last %></span>
+  <%= form.date_field :warranty_start_date, placeholder: warranty.warranty_start_date, id: 'start-date', class: 'form-control datepicker' %>
 </div>
 
-<div>
+<div class='form-group' style="max-width: 25%">
   <%= form.label :warranty_end_date %>
-  <%= form.date_field :warranty_end_date, placeholder: warranty.warranty_end_date, id: 'end-date' %>
-  <span class="error" id="warranty-end-error"></span>
-  <% warranty.errors.full_messages_for(:warranty_end_date).each do |message| %>
-    <%= message %>
-  <% end %>
+  <span class="error" id="warranty-end-error"><%= warranty.errors.messages_for(:warranty_end_date).last %></span>
+  <%= form.date_field :warranty_end_date, placeholder: warranty.warranty_end_date, id: 'end-date', class: 'form-control datepicker' %>
 </div>
