@@ -19,8 +19,8 @@ body {
   background-color:  #c5e5d5
 }
 
-// frequently used by titles
-h1, h2, h3, h4, p {
+// frequently used by titles. h2 is used by devise pages.
+h1, h3, h4, p {
   text-align: center;
   margin: 2%;
 }
@@ -116,6 +116,22 @@ tr {
   border:1px solid #b3c6b3;
   border-radius: 45px;
   background-color: #f8f3eb
+}
+
+.login_container {
+  background-color: #FFF8DC;
+  margin: 1%;
+  display: flex;
+  align-items: flex-start;
+  width: 40%;
+
+}
+
+.login_background {
+  background-color: #FFF8DC;
+  background-image: url('tree-bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .error {
