@@ -37,8 +37,27 @@ class WarrantyControllerTest < ActionDispatch::IntegrationTest
     sign_in new_user
 
     get warranty_index_path
-    assert_select 'Current Warranties', false
+
+    assert_match 'Current Warranties', response.body
+    assert_match 'None! Try adding a new warranty...', response.body
     assert_select 'Expired Warranties', false
+  end
+
+  test 'Index current warranties displays default if current warranties expire' do
+    new_user = FactoryBot.create(:user)
+    sign_in new_user
+
+    w = FactoryBot.create(:warranty, user: new_user)
+    get warranty_index_path
+
+    assert_select 'h3', 'Current Warranties'
+    assert_match w.warranty_name, response.body
+
+    w.update!(expired: true)
+    get warranty_index_path
+
+    assert_match 'Current Warranties', response.body
+    assert_match 'None! Try adding a new warranty...', response.body
   end
 
   test 'Index will not display expired warranties table if there are no expired warranties' do
