@@ -1,6 +1,6 @@
-<% unless any_warranties.empty? %>
+<% if !any_warranties.empty? %>
   <table class='container table'>
-    <h3 style='text-align: center;'><%= title %></h3>
+    <h3><%= title %></h3>
     <head>
       <tr class='row'>
         <th class='col'>Name</th>
@@ -23,4 +23,7 @@
       <% end %>
     </body>
   </table>
+<% elsif title == 'Current Warranties' %>
+  <h3><%= title %></h3>
+  <h5 class='my-deep-brown'>None! Try adding a new warranty...</h5>
 <% end %>
