@@ -13,6 +13,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
 
     steps:
     - name: Checkout code
