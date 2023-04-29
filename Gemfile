@@ -57,6 +57,14 @@ gem 'whenever'
 # Linter Rubocop-Rails
 gem 'rubocop-rails', require: false
 
+# Background processing for Ruby
+gem 'sidekiq'
+gem 'redis'
+gem 'sinatra'
+
+# For loading env
+gem 'dotenv-rails'
+
 # END CUSTOM----->
 
 group :development, :test do

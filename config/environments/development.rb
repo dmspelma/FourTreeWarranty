@@ -35,8 +35,11 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
+  # Perform deliveries
+  config.action_mailer.perform_deliveries = true
+
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
@@ -46,12 +49,12 @@ Rails.application.configure do
   # My Basic Mailer Setup
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'thisfoxcodes@gmail.com',
-    port: 587,
-    domain: 'thisfoxcodes.com',
-    user_name: 'dummy',
-    password: 'dummy',
-    authentication: 'plain',
+    address: ENV.fetch('SMTP_ADDRESS'),
+    port: ENV.fetch('SMTP_PORT'),
+    domain: ENV.fetch('SMTP_DOMAIN'),
+    user_name: ENV.fetch('SMTP_USER_NAME'),
+    password: ENV.fetch('SMTP_APP_PASSWORD'),
+    authentication: :plain,
     enable_starttls_auto: true
   }
   # config.action_mailer.perform_deliveries = true
